@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровой портал - Мини-игры</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .games-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+            .game-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .game-card h3 {
+                margin-bottom: 1rem;
+                color: #6e48aa;
+            }
+
+            .game-card p {
+                color: #666;
+                margin-bottom: 1.5rem;
+            }
+
+        .btn {
+            display: inline-block;
+            background: #6e48aa;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+            .btn:hover {
+                background: #9d50bb;
+            }
+
+        .game-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Стили для игры "Крестики-Нолики" */
+        #tic-tac-toe-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            margin: 2rem auto;
+            width: fit-content;
+        }
+
+        .tic-tac-toe-cell {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+            .tic-tac-toe-cell:hover {
+                background-color: #e0e2e5;
+            }
+
+            .tic-tac-toe-cell.x {
+                color: #6e48aa;
+            }
+
+            .tic-tac-toe-cell.o {
+                color: #9d50bb;
+            }
+
+        #tic-tac-toe-status {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        /* Стили для игры "Виселица" */
+        #hangman-container {
+            text-align: center;
+        }
+
+        #hangman-word {
+            font-size: 2rem;
+            letter-spacing: 0.5rem;
+            margin: 2rem 0;
+            font-weight: bold;
+        }
+
+        #hangman-letters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .hangman-letter {
+            width: 40px;
+            height: 40px;
+            background: #6e48aa;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .hangman-letter:hover {
+                background: #9d50bb;
+            }
+
+            .hangman-letter:disabled {
+                background: #ccc;
+                cursor: not-allowed;
+            }
+
+        #hangman-image {
+            margin: 1rem auto;
+            font-family: monospace;
+            white-space: pre;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        /* Стили для игры "Змейка" */
+        #snake-game {
+            display: block;
+            margin: 0 auto;
+            background-color: #f0f2f5;
+            border: 2px solid #6e48aa;
+        }
+
+        #snake-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .snake-btn {
+            padding: 0.5rem 1rem;
+            background: #6e48aa;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #snake-score {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Игровой портал</h1>
+        <p>Выберите игру и начинайте играть!</p>
+    </header>
+
+    <div class="container">
+        <div class="games-menu">
+            <div class="game-card" onclick="showGame('tic-tac-toe')">
+                <h3>Крестики-Нолики</h3>
+                <p>Классическая игра для двух игроков на одном устройстве</p>
+                <a class="btn">Играть</a>
+            </div>
+
+            <div class="game-card" onclick="showGame('hangman')">
+                <h3>Виселица</h3>
+                <p>Угадайте слово по буквам, пока не закончились попытки</p>
+                <a class="btn">Играть</a>
+            </div>
+
+            <div class="game-card" onclick="showGame('snake')">
+                <h3>Змейка</h3>
+                <p>Классическая змейка - собирайте еду и не врезайтесь</p>
+                <a class="btn">Играть</a>
+            </div>
+        </div>
+
+        <!-- Игра "Крестики-Нолики" -->
+        <div id="tic-tac-toe" class="game-container">
+            <h2>Крестики-Нолики</h2>
+            <p>Играйте по очереди. Первый игрок - X, второй - O.</p>
+
+            <div id="tic-tac-toe-status">Ход игрока: X</div>
+
+            <div id="tic-tac-toe-board">
+                <div class="tic-tac-toe-cell" data-index="0"></div>
+                <div class="tic-tac-toe-cell" data-index="1"></div>
+                <div class="tic-tac-toe-cell" data-index="2"></div>
+                <div class
+
