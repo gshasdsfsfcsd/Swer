@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Èãðîâîé ïîðòàë - Ìèíè-èãðû</title>
+    <title>Игровой портал - Мини-игры</title>
     <style>
         * {
             box-sizing: border-box;
@@ -94,7 +94,7 @@
             display: block;
         }
 
-        /* Ñòèëè äëÿ èãðû "Êðåñòèêè-Íîëèêè" */
+        /* Стили для игры "Крестики-Нолики" */
         #tic-tac-toe-board {
             display: grid;
             grid-template-columns: repeat(3, 100px);
@@ -137,7 +137,7 @@
             font-weight: bold;
         }
 
-        /* Ñòèëè äëÿ èãðû "Âèñåëèöà" */
+        /* Стили для игры "Виселица" */
         #hangman-container {
             text-align: center;
         }
@@ -188,7 +188,7 @@
             line-height: 1.4;
         }
 
-        /* Ñòèëè äëÿ èãðû "Çìåéêà" */
+        /* Стили для игры "Змейка" */
         #snake-game {
             display: block;
             margin: 0 auto;
@@ -230,41 +230,511 @@
 </head>
 <body>
     <header>
-        <h1>Èãðîâîé ïîðòàë</h1>
-        <p>Âûáåðèòå èãðó è íà÷èíàéòå èãðàòü!</p>
+        <h1>Игровой портал</h1>
+        <p>Выберите игру и начинайте играть!</p>
     </header>
 
     <div class="container">
         <div class="games-menu">
             <div class="game-card" onclick="showGame('tic-tac-toe')">
-                <h3>Êðåñòèêè-Íîëèêè</h3>
-                <p>Êëàññè÷åñêàÿ èãðà äëÿ äâóõ èãðîêîâ íà îäíîì óñòðîéñòâå</p>
-                <a class="btn">Èãðàòü</a>
+                <h3>Крестики-Нолики</h3>
+                <p>Классическая игра для двух игроков на одном устройстве</p>
+                <a class="btn">Играть</a>
             </div>
 
             <div class="game-card" onclick="showGame('hangman')">
-                <h3>Âèñåëèöà</h3>
-                <p>Óãàäàéòå ñëîâî ïî áóêâàì, ïîêà íå çàêîí÷èëèñü ïîïûòêè</p>
-                <a class="btn">Èãðàòü</a>
+                <h3>Виселица</h3>
+                <p>Угадайте слово по буквам, пока не закончились попытки</p>
+                <a class="btn">Играть</a>
             </div>
 
             <div class="game-card" onclick="showGame('snake')">
-                <h3>Çìåéêà</h3>
-                <p>Êëàññè÷åñêàÿ çìåéêà - ñîáèðàéòå åäó è íå âðåçàéòåñü</p>
-                <a class="btn">Èãðàòü</a>
+                <h3>Змейка</h3>
+                <p>Классическая змейка - собирайте еду и не врезайтесь</p>
+                <a class="btn">Играть</a>
             </div>
         </div>
 
-        <!-- Èãðà "Êðåñòèêè-Íîëèêè" -->
+        <!-- Игра "Крестики-Нолики" -->
         <div id="tic-tac-toe" class="game-container">
-            <h2>Êðåñòèêè-Íîëèêè</h2>
-            <p>Èãðàéòå ïî î÷åðåäè. Ïåðâûé èãðîê - X, âòîðîé - O.</p>
+            <h2>Крестики-Нолики</h2>
+            <p>Играйте по очереди. Первый игрок - X, второй - O.</p>
 
-            <div id="tic-tac-toe-status">Õîä èãðîêà: X</div>
+            <div id="tic-tac-toe-status">Ход игрока: X</div>
 
             <div id="tic-tac-toe-board">
                 <div class="tic-tac-toe-cell" data-index="0"></div>
                 <div class="tic-tac-toe-cell" data-index="1"></div>
                 <div class="tic-tac-toe-cell" data-index="2"></div>
-                <div class
+                <div class="tic-tac-toe-cell" data-index="3"></div>
+                <div class="tic-tac-toe-cell" data-index="4"></div>
+                <div class="tic-tac-toe-cell" data-index="5"></div>
+                <div class="tic-tac-toe-cell" data-index="6"></div>
+                <div class="tic-tac-toe-cell" data-index="7"></div>
+                <div class="tic-tac-toe-cell" data-index="8"></div>
+            </div>
 
+            <div style="text-align: center;">
+                <button class="btn" onclick="resetTicTacToe()">Начать заново</button>
+            </div>
+        </div>
+
+        <!-- Игра "Виселица" -->
+        <div id="hangman" class="game-container">
+            <h2>Виселица</h2>
+            <p>Угадайте слово, вводя буквы. У вас есть 6 попыток.</p>
+
+            <div id="hangman-container">
+                <div id="hangman-image">
+                    +---+
+                    |   |
+                    |
+                    |
+                    |
+                    |
+                    =========
+                </div>
+
+                <div id="hangman-word">_ _ _ _ _ _</div>
+
+                <div id="hangman-letters">
+                    <!-- Буквы будут добавлены через JavaScript -->
+                </div>
+
+                <button class="btn" onclick="resetHangman()">Новое слово</button>
+            </div>
+        </div>
+
+        <!-- Игра "Змейка" -->
+        <div id="snake" class="game-container">
+            <h2>Змейка</h2>
+            <p>Управляйте змейкой с помощью стрелок на клавиатуре. Собирайте еду (красные квадраты) и не врезайтесь в стены или себя.</p>
+
+            <div id="snake-score">Счет: 0</div>
+
+            <canvas id="snake-game" width="400" height="400"></canvas>
+
+            <div id="snake-controls">
+                <button class="snake-btn" onclick="startSnakeGame()">Старт</button>
+                <button class="snake-btn" onclick="resetSnakeGame()">Сброс</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Игровой портал. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Функция для переключения между играми
+        function showGame(gameId) {
+            // Скрыть все игровые контейнеры
+            document.querySelectorAll('.game-container').forEach(container => {
+                container.classList.remove('active');
+            });
+
+            // Показать выбранную игру
+            document.getElementById(gameId).classList.add('active');
+
+            // При показе игры "Змейка" инициализировать ее
+            if (gameId === 'snake') {
+                initSnakeGame();
+            }
+        }
+
+        // Игра "Крестики-Нолики"
+        let currentPlayer = 'X';
+        let gameState = ['', '', '', '', '', '', '', '', ''];
+        const statusDisplay = document.getElementById('tic-tac-toe-status');
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // горизонтали
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // вертикали
+            [0, 4, 8], [2, 4, 6]             // диагонали
+        ];
+
+        function handleCellClick(clickedCellEvent) {
+            const clickedCell = clickedCellEvent.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
+
+            if (gameState[clickedCellIndex] !== '' || !gameActive) {
+                return;
+            }
+
+            handleCellPlayed(clickedCell, clickedCellIndex);
+            handleResultValidation();
+        }
+
+        function handleCellPlayed(clickedCell, clickedCellIndex) {
+            gameState[clickedCellIndex] = currentPlayer;
+            clickedCell.textContent = currentPlayer;
+            clickedCell.classList.add(currentPlayer.toLowerCase());
+        }
+
+        function handleResultValidation() {
+            let roundWon = false;
+
+            for (let i = 0; i < winningConditions.length; i++) {
+                const winCondition = winningConditions[i];
+                const a = gameState[winCondition[0]];
+                const b = gameState[winCondition[1]];
+                const c = gameState[winCondition[2]];
+
+                if (a === '' || b === '' || c === '') {
+                    continue;
+                }
+
+                if (a === b && b === c) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusDisplay.textContent = `Игрок ${currentPlayer} победил!`;
+                gameActive = false;
+                return;
+            }
+
+            const roundDraw = !gameState.includes('');
+            if (roundDraw) {
+                statusDisplay.textContent = 'Ничья!';
+                gameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusDisplay.textContent = `Ход игрока: ${currentPlayer}`;
+        }
+
+        function resetTicTacToe() {
+            currentPlayer = 'X';
+            gameState = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            statusDisplay.textContent = `Ход игрока: ${currentPlayer}`;
+
+            document.querySelectorAll('.tic-tac-toe-cell').forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('x', 'o');
+            });
+        }
+
+        let gameActive = true;
+        document.querySelectorAll('.tic-tac-toe-cell').forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        // Игра "Виселица"
+        const words = ['ПРОГРАММИРОВАНИЕ', 'КОМПЬЮТЕР', 'ИНТЕРНЕТ', 'АЛГОРИТМ', 'БРАУЗЕР', 'КЛАВИАТУРА', 'МОНИТОР', 'СЕРВЕР'];
+        let selectedWord = '';
+        let guessedLetters = [];
+        let wrongGuesses = 0;
+        const maxWrongGuesses = 6;
+
+        function initHangman() {
+            selectedWord = words[Math.floor(Math.random() * words.length)];
+            guessedLetters = [];
+            wrongGuesses = 0;
+
+            // Создаем кнопки для букв
+            const lettersContainer = document.getElementById('hangman-letters');
+            lettersContainer.innerHTML = '';
+
+            for (let i = 0; i < 33; i++) {
+                const letter = String.fromCharCode(1040 + i); // Русские буквы от А до Я
+                const button = document.createElement('button');
+                button.className = 'hangman-letter';
+                button.textContent = letter;
+                button.onclick = () => guessLetter(letter);
+                lettersContainer.appendChild(button);
+            }
+
+            updateHangmanDisplay();
+        }
+
+        function guessLetter(letter) {
+            if (guessedLetters.includes(letter)) return;
+
+            guessedLetters.push(letter);
+            const letterButtons = document.querySelectorAll('.hangman-letter');
+
+            for (let btn of letterButtons) {
+                if (btn.textContent === letter) {
+                    btn.disabled = true;
+
+                    if (!selectedWord.includes(letter)) {
+                        btn.style.background = '#ff6b6b';
+                        wrongGuesses++;
+                    } else {
+                        btn.style.background = '#51cf66';
+                    }
+                }
+            }
+
+            updateHangmanDisplay();
+            checkGameStatus();
+        }
+
+        function updateHangmanDisplay() {
+            // Обновляем изображение виселицы
+            const hangmanImages = [
+                `
+      +---+
+      |   |
+          |
+          |
+          |
+          |
+=========
+`,
+                `
+      +---+
+      |   |
+      O   |
+          |
+          |
+          |
+=========
+`,
+                `
+      +---+
+      |   |
+      O   |
+      |   |
+          |
+          |
+=========
+`,
+                `
+      +---+
+      |   |
+      O   |
+     /|   |
+          |
+          |
+=========
+`,
+                `
+      +---+
+      |   |
+      O   |
+     /|\\  |
+          |
+          |
+=========
+`,
+                `
+      +---+
+      |   |
+      O   |
+     /|\\  |
+     /    |
+          |
+=========
+`,
+                `
+      +---+
+      |   |
+      O   |
+     /|\\  |
+     / \\  |
+          |
+=========
+`
+            ];
+
+            document.getElementById('hangman-image').textContent = hangmanImages[wrongGuesses];
+
+            // Обновляем отображение слова
+            let displayWord = '';
+            for (let char of selectedWord) {
+                if (guessedLetters.includes(char)) {
+                    displayWord += char + ' ';
+                } else {
+                    displayWord += '_ ';
+                }
+            }
+
+            document.getElementById('hangman-word').textContent = displayWord.trim();
+        }
+
+        function checkGameStatus() {
+            // Проверяем победу
+            let isWon = true;
+            for (let char of selectedWord) {
+                if (!guessedLetters.includes(char)) {
+                    isWon = false;
+                    break;
+                }
+            }
+
+            if (isWon) {
+                setTimeout(() => {
+                    alert('Поздравляем! Вы выиграли! Слово: ' + selectedWord);
+                    resetHangman();
+                }, 100);
+                return;
+            }
+
+            // Проверяем проигрыш
+            if (wrongGuesses >= maxWrongGuesses) {
+                setTimeout(() => {
+                    alert('Игра окончена! Вы проиграли. Слово было: ' + selectedWord);
+                    resetHangman();
+                }, 100);
+            }
+        }
+
+        function resetHangman() {
+            initHangman();
+        }
+
+        // Инициализируем игру при загрузке
+        window.onload = function () {
+            initHangman();
+            showGame('tic-tac-toe');
+        };
+
+        // Игра "Змейка"
+        let snakeCanvas, snakeCtx;
+        let snake, food;
+        let dx = 0, dy = 0;
+        let score = 0;
+        let gameLoop;
+        let isGameRunning = false;
+
+        function initSnakeGame() {
+            snakeCanvas = document.getElementById('snake-game');
+            snakeCtx = snakeCanvas.getContext('2d');
+
+            // Размер одного сегмента змейки или еды
+            const box = 20;
+
+            // Инициализация змейки
+            snake = [
+                { x: 9 * box, y: 10 * box }
+            ];
+
+            // Генерация еды
+            generateFood();
+
+            // Сброс направления и счета
+            dx = 0;
+            dy = 0;
+            score = 0;
+            document.getElementById('snake-score').textContent = 'Счет: 0';
+
+            // Отрисовка начального состояния
+            drawSnakeGame();
+        }
+
+        function drawSnakeGame() {
+            // Очистка холста
+            snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+
+            // Отрисовка змейки
+            for (let i = 0; i < snake.length; i++) {
+                snakeCtx.fillStyle = i === 0 ? '#4CAF50' : '#8BC34A';
+                snakeCtx.fillRect(snake[i].x, snake[i].y, box, box);
+                snakeCtx.strokeStyle = '#fff';
+                snakeCtx.strokeRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            // Отрисовка еды
+            snakeCtx.fillStyle = '#f44336';
+            snakeCtx.fillRect(food.x, food.y, box, box);
+        }
+
+        function generateFood() {
+            const box = 20;
+            // Генерация случайных координат для еды
+            food = {
+                x: Math.floor(Math.random() * 20) * box,
+                y: Math.floor(Math.random() * 20) * box
+            };
+
+            // Проверка, чтобы еда не появилась на змейке
+            for (let i = 0; i < snake.length; i++) {
+                if (food.x === snake[i].x && food.y === snake[i].y) {
+                    generateFood();
+                    break;
+                }
+            }
+        }
+
+        function startSnakeGame() {
+            if (isGameRunning) return;
+
+            isGameRunning = true;
+            const box = 20;
+
+            // Основной игровой цикл
+            gameLoop = setInterval(() => {
+                // Создаем новую голову
+                const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+                // Проверка столкновения с границами
+                if (head.x < 0 || head.x >= snakeCanvas.width || head.y < 0 || head.y >= snakeCanvas.height) {
+                    gameOver();
+                    return;
+                }
+
+                // Проверка столкновения с собой
+                for (let i = 0; i < snake.length; i++) {
+                    if (head.x === snake[i].x && head.y === snake[i].y) {
+                        gameOver();
+                        return;
+                    }
+                }
+
+                // Добавляем новую голову
+                snake.unshift(head);
+
+                // Проверка, съела ли змейка еду
+                if (head.x === food.x && head.y === food.y) {
+                    score++;
+                    document.getElementById('snake-score').textContent = 'Счет: ' + score;
+                    generateFood();
+                } else {
+                    // Если не съела, удаляем хвост
+                    snake.pop();
+                }
+
+                // Отрисовываем игру
+                drawSnakeGame();
+            }, 100);
+        }
+
+        function gameOver() {
+            clearInterval(gameLoop);
+            isGameRunning = false;
+            alert('Игра окончена! Ваш счет: ' + score);
+        }
+
+        function resetSnakeGame() {
+            clearInterval(gameLoop);
+            isGameRunning = false;
+            initSnakeGame();
+        }
+
+        // Управление змейкой с клавиатуры
+        document.addEventListener('keydown', function (e) {
+            const box = 20;
+
+            if (e.key === 'ArrowLeft' && dx === 0) {
+                dx = -box;
+                dy = 0;
+            } else if (e.key === 'ArrowUp' && dy === 0) {
+                dx = 0;
+                dy = -box;
+            } else if (e.key === 'ArrowRight' && dx === 0) {
+                dx = box;
+                dy = 0;
+            } else if (e.key === 'ArrowDown' && dy === 0) {
+                dx = 0;
+                dy = box;
+            }
+        });
+    </script>
+</body>
+</html>
